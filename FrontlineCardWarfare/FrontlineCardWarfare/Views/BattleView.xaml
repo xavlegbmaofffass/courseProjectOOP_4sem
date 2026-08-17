@@ -1,0 +1,719 @@
+<UserControl x:Class="FrontlineCardWarfare.Views.BattleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:FrontlineCardWarfare.ViewModels"
+             xmlns:models="clr-namespace:FrontlineCardWarfare.Models"
+             xmlns:data="clr-namespace:FrontlineCardWarfare.Data"
+             xmlns:controls="clr-namespace:FrontlineCardWarfare.Controls"
+             xmlns:conv="clr-namespace:FrontlineCardWarfare.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1400"
+             Background="#0A0A14">
+    
+    <UserControl.Resources>
+        <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+        <conv:TurnDotColorConverter x:Key="TurnDotColorConverter"/>
+        <conv:TurnTextConverter x:Key="TurnTextConverter"/>
+        <conv:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        
+        <!-- Градиентный фон для поля -->
+        <RadialGradientBrush x:Key="BattleFieldBackground" Center="0.5,0.4" GradientOrigin="0.5,0.4" RadiusX="0.8" RadiusY="0.8">
+            <GradientStop Color="#1A1A3A" Offset="0"/>
+            <GradientStop Color="#0D0D1F" Offset="0.6"/>
+            <GradientStop Color="#05050A" Offset="1.0"/>
+        </RadialGradientBrush>
+
+        <!-- Cyber Grid Pattern -->
+        <VisualBrush x:Key="GridPattern" TileMode="Tile" Viewport="0,0,40,40" ViewportUnits="Absolute">
+            <VisualBrush.Visual>
+                <Grid Width="40" Height="40">
+                    <Path Data="M 40 0 L 0 0 0 40" Stroke="#10FFFFFF" StrokeThickness="0.5"/>
+                    <Ellipse Width="2" Height="2" Fill="#05FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+        
+        <!-- Стили для кнопок -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#0077B6" Offset="0"/>
+                        <GradientStop Color="#0077B6" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="24,14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#400077B6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#0077B6" BlurRadius="15" ShadowDepth="0" Opacity="0.4"/>
+                            </Border.Effect>
+                            <Grid>
+                                <!-- Декоративные уголки -->
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.5"/>
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <RotateTransform Angle="180"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter.Effect>
+                                        <DropShadowEffect BlurRadius="2" ShadowDepth="1" Opacity="0.5"/>
+                                    </ContentPresenter.Effect>
+                                </ContentPresenter>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#33E5FF" Offset="0"/>
+                                            <GradientStop Color="#0096E6" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#800077B6"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.98" ScaleY="0.98"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="SurrenderButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FF4B4B" Offset="0"/>
+                        <GradientStop Color="#8B0000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="#40FF4B4B"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#FF0000" BlurRadius="15" ShadowDepth="0" Opacity="0.4"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.5"/>
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <RotateTransform Angle="180"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF6666"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="EndTurnButton" TargetType="Button" BasedOn="{StaticResource ActionButton}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4CAF50" Offset="0"/>
+                        <GradientStop Color="#1B5E20" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="#404CAF50"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#4CAF50" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0.5"/>
+                                <Path Data="M 0 5 L 0 0 L 5 0" Stroke="#FFFFFF" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <RotateTransform Angle="180"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <ContentPresenter.Effect>
+                                        <DropShadowEffect BlurRadius="2" ShadowDepth="1" Opacity="0.5"/>
+                                    </ContentPresenter.Effect>
+                                </ContentPresenter>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#66BB6A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Стили для CellControl -->
+        <Style x:Key="CellStyle" TargetType="controls:CellControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#303A50"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid x:Name="RootGrid">
+        <!-- Базовый фон -->
+        <Border Background="#05050A"/>
+        
+        <!-- Сетка (Grid Pattern) -->
+        <Border Background="{StaticResource GridPattern}" Opacity="0.4"/>
+        
+        <!-- Основной градиент -->
+        <Border Background="{StaticResource BattleFieldBackground}"/>
+
+        <Grid x:Name="BattleBoardGrid" RenderTransformOrigin="0.5,0.5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="270"/>
+            </Grid.RowDefinitions>
+            
+            <!-- ЛЕВАЯ ПАНЕЛЬ -->
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" 
+                    Background="#CC0D0D1A" 
+                    BorderBrush="#300077B6" 
+                    BorderThickness="0,0,1,0">
+                <Grid Margin="16,24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Logo / App Name -->
+                    <StackPanel Grid.Row="0" Margin="0,0,0,32">
+                        <TextBlock Text="FRONTLINE" FontSize="24" FontWeight="Black" 
+                                  Foreground="#0077B6" HorizontalAlignment="Left"
+                                 >
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#0077B6" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <TextBlock Text="CARD WARFARE" FontSize="10" Foreground="#5A5A7A" 
+                                  FontWeight="Bold" HorizontalAlignment="Left" Margin="2,-4,0,0"/>
+                    </StackPanel>
+                    
+                    <!-- Turn Status Card -->
+                    <Border Grid.Row="1" Background="#20151525" BorderBrush="#400077B6" 
+                            BorderThickness="1" Padding="16" CornerRadius="4">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,12">
+                                <TextBlock Text="SYSTEM TURN" FontSize="10" Foreground="#5A5A7A" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding CurrentTurn, StringFormat={}{0}}" 
+                                          FontSize="12" Foreground="#0077B6" FontWeight="Bold" 
+                                          HorizontalAlignment="Right"/>
+                            </Grid>
+                            
+                            <Border Background="#10FFFFFF" Height="1" Margin="0,0,0,16"/>
+                            
+                            <!-- Счётчики силы атаки -->
+                            <Grid Margin="0,0,0,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left">
+                                    <TextBlock Text="PLAYER ATK" FontSize="9" Foreground="#5A5A7A" FontWeight="Bold" Margin="0,0,0,2"/>
+                                    <TextBlock Text="{Binding PlayerTotalAttack}" FontSize="20" FontWeight="Black" Foreground="#0077B6"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                                    <TextBlock Text="ENEMY ATK" FontSize="9" Foreground="#5A5A7A" FontWeight="Bold" Margin="0,0,0,2" HorizontalAlignment="Right"/>
+                                    <TextBlock Text="{Binding EnemyTotalAttack}" FontSize="20" FontWeight="Black" Foreground="#FF3860" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <Border Background="#10FFFFFF" Height="1" Margin="0,0,0,16"/>
+                            
+                            <!-- Новая надпись статуса хода (используем CurrentTurnIndicator напрямую) -->
+                            <TextBlock Text="{Binding CurrentTurnIndicator}" 
+                                      FontSize="18" FontWeight="ExtraBold" HorizontalAlignment="Center" Margin="0,0,0,8"
+                                      Foreground="#FFFFFF">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsPlayerTurn}" Value="True">
+                                                <Setter Property="Foreground" Value="#0077B6"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="#0077B6" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsPlayerTurn}" Value="False">
+                                                <Setter Property="Foreground" Value="#FF3860"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="#FF3860" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Ellipse Width="10" Height="10" 
+                                        Fill="{Binding IsPlayerTurn, Converter={StaticResource TurnDotColorConverter}}"
+                                        Margin="0,0,10,0">
+                                    <Ellipse.Effect>
+                                        <DropShadowEffect Color="#0077B6" BlurRadius="8" ShadowDepth="0" Opacity="0.8"/>
+                                    </Ellipse.Effect>
+                                </Ellipse>
+                                <TextBlock Text="LINK ESTABLISHED" 
+                                          FontSize="10" FontWeight="Bold" 
+                                          Foreground="#5A5A7A" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Log / Status (Decorative) - Moved above Deck Status -->
+                    <Border Grid.Row="3" Margin="0,16,0,0" Opacity="0.6">
+                        <StackPanel>
+                            <TextBlock Text="TACTICAL OVERLAY" FontSize="9" Foreground="#5A5A7A" FontWeight="Bold" Margin="0,0,0,8"/>
+                            <TextBlock Text="> SYSTEMS ONLINE" FontSize="9" Foreground="#0077B6" FontFamily="Consolas" Margin="0,0,0,4"/>
+                            <TextBlock Text="> WAITING FOR INPUT" FontSize="9" Foreground="#0077B6" FontFamily="Consolas" Margin="0,0,0,4"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Deck Status - Moved below Log and above Buttons -->
+                    <Border Grid.Row="4" Margin="0,16,0,0" Background="#150077B6" BorderBrush="#300077B6" BorderThickness="1" CornerRadius="4" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="DECK STATUS" FontSize="9" Foreground="#5A5A7A" FontWeight="Bold" Margin="0,0,0,8"/>
+                            <Grid>
+                                <TextBlock Text="REMAINING:" FontSize="10" Foreground="#A0A0B0" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <TextBlock Text="{Binding PlayerDeckCount}" FontSize="18" Foreground="#0077B6" FontWeight="Black"/>
+                                    <TextBlock Text=" UNITS" FontSize="9" Foreground="#5A5A7A" VerticalAlignment="Bottom" Margin="4,0,0,2"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                    
+                    <!-- Action Buttons -->
+                    <StackPanel Grid.Row="5" Margin="0,16,0,16">
+                        <Button Content="ЗАВЕРШИТЬ ХОД" 
+                               Command="{Binding EndTurnCommand}"
+                               Style="{StaticResource EndTurnButton}"
+                               Margin="0,0,0,12"
+                               Height="50"
+                               IsEnabled="{Binding IsInteractionEnabled}"/>
+                        <Button Content="СДАТЬСЯ" 
+                               Command="{Binding SurrenderCommand}"
+                               Style="{StaticResource SurrenderButton}"
+                               Height="44"
+                               IsEnabled="{Binding IsInteractionEnabled}"/>
+                    </StackPanel>
+                    
+                    <!-- Footer Info -->
+                    <Border Grid.Row="6" BorderBrush="#20FFFFFF" BorderThickness="0,1,0,0" Padding="0,12,0,0">
+                        <TextBlock Text="v1.2.0 | SECURE_LINK: ACTIVE" FontSize="8" 
+                                  Foreground="#3A3A5A" HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+            
+            <!-- ИГРОВОЕ ПОЛЕ -->
+            <Border Grid.Column="1" Grid.Row="0" Padding="32,9">
+                <Grid x:Name="BattleGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- ЗОНА ПРОТИВНИКА -->
+                    <Border x:Name="EnemyZone" Grid.Row="0" 
+                            Background="#08FF0000" 
+                            CornerRadius="8" Padding="16,11"
+                            BorderBrush="#20FF0000" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Header -->
+                            <Grid Grid.Row="0" Margin="0,0,0,16">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Data="M 0 0 L 10 0 L 10 2 L 2 2 L 2 10 L 0 10 Z" Fill="#FF6666" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="ENEMY_UNIT_COMMAND" FontSize="11" FontWeight="Black" Foreground="#FF6666" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Border Background="#30FF0000" CornerRadius="2" Padding="8,4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="DECK:" FontSize="10" Foreground="#AA6A6A" VerticalAlignment="Center" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding EnemyDeckCount}" FontSize="11" Foreground="#FF8888" VerticalAlignment="Center" FontWeight="Bold" Margin="6,0,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <!-- Board Rows -->
+                            <Grid x:Name="EnemyGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <ItemsControl Grid.Row="0" ItemsSource="{Binding BoardCellsRow0}" Margin="0,0,0,8"
+                                             AllowDrop="True" DragOver="BattleField_DragOver" Drop="BattleField_Drop">
+                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="4"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:CellControl Width="95" Height="145" Margin="6" Style="{StaticResource CellStyle}"
+                                                                  Row="{Binding Row}" Column="{Binding Column}" 
+                                                                  IsEmpty="{Binding IsEmpty}" 
+                                                                  UnitImagePath="{Binding UnitImagePath}" 
+                                                                  HasUnit="{Binding HasUnit}"
+                                                                  AllowDrop="True" 
+                                                                  DragOver="BattleField_DragOver" 
+                                                                  Drop="BattleField_Drop"
+                                                                  MouseLeftButtonUp="CellControl_MouseLeftButtonUp_OnField"
+                                                                  IsAvailableForMove="{Binding IsAvailableForMove}" 
+                                                                  IsAvailableForAttack="{Binding IsAvailableForAttack}" 
+                                                                  IsSelected="{Binding IsSelected}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding BoardCellsRow1}"
+                                             AllowDrop="True" DragOver="BattleField_DragOver" Drop="BattleField_Drop">
+                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="4"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:CellControl Width="95" Height="145" Margin="6" Style="{StaticResource CellStyle}"
+                                                                  Row="{Binding Row}" Column="{Binding Column}" 
+                                                                  IsEmpty="{Binding IsEmpty}" 
+                                                                  UnitImagePath="{Binding UnitImagePath}" 
+                                                                  HasUnit="{Binding HasUnit}"
+                                                                  AllowDrop="True" 
+                                                                  DragOver="BattleField_DragOver" 
+                                                                  Drop="BattleField_Drop"
+                                                                  MouseLeftButtonUp="CellControl_MouseLeftButtonUp_OnField"
+                                                                  IsAvailableForMove="{Binding IsAvailableForMove}" 
+                                                                  IsAvailableForAttack="{Binding IsAvailableForAttack}" 
+                                                                  IsSelected="{Binding IsSelected}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    
+                    <!-- ЗОНА ИГРОКА -->
+                    <Border x:Name="PlayerZone" Grid.Row="1" 
+                            Background="#080077B6" 
+                            CornerRadius="8" Padding="16,11"
+                            BorderBrush="#200077B6" BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Header -->
+                            <Grid Grid.Row="0" Margin="0,0,0,16">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Data="M 0 0 L 10 0 L 10 2 L 2 2 L 2 10 L 0 10 Z" Fill="#0077B6" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="PLAYER_UNIT_COMMAND" FontSize="11" FontWeight="Black" Foreground="#0077B6" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <!-- Board Rows -->
+                            <Grid x:Name="PlayerGrid" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <ItemsControl Grid.Row="0" ItemsSource="{Binding BoardCellsRow2}" Margin="0,0,0,8"
+                                             AllowDrop="True" DragOver="BattleField_DragOver" Drop="BattleField_Drop">
+                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="4"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:CellControl Width="95" Height="145" Margin="6" Style="{StaticResource CellStyle}"
+                                                                 Row="{Binding Row}" Column="{Binding Column}" IsEmpty="{Binding IsEmpty}" 
+                                                                 UnitImagePath="{Binding UnitImagePath}" HasUnit="{Binding HasUnit}"
+                                                                 AllowDrop="True" 
+                                                                 DragOver="BattleField_DragOver" 
+                                                                 Drop="BattleField_Drop"
+                                                                 MouseLeftButtonUp="CellControl_MouseLeftButtonUp_OnField"
+                                                                 IsAvailableForMove="{Binding IsAvailableForMove}" IsAvailableForAttack="{Binding IsAvailableForAttack}" IsSelected="{Binding IsSelected}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding BoardCellsRow3}"
+                                             AllowDrop="True" DragOver="BattleField_DragOver" Drop="BattleField_Drop">
+                                    <ItemsControl.ItemsPanel><ItemsPanelTemplate><UniformGrid Rows="1" Columns="4"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <controls:CellControl Width="95" Height="145" Margin="6" Style="{StaticResource CellStyle}"
+                                                                 Row="{Binding Row}" Column="{Binding Column}" IsEmpty="{Binding IsEmpty}" 
+                                                                 UnitImagePath="{Binding UnitImagePath}" HasUnit="{Binding HasUnit}"
+                                                                 AllowDrop="True" 
+                                                                 DragOver="BattleField_DragOver" 
+                                                                 Drop="BattleField_Drop"
+                                                                 MouseLeftButtonUp="CellControl_MouseLeftButtonUp_OnField"
+                                                                 IsAvailableForMove="{Binding IsAvailableForMove}" IsAvailableForAttack="{Binding IsAvailableForAttack}" IsSelected="{Binding IsSelected}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!-- Линия разделения (Центральная линия) -->
+                    <Border x:Name="CentralLine" Grid.RowSpan="2" Height="4" VerticalAlignment="Center" 
+                            Background="#800077B6" Opacity="0.3" IsHitTestVisible="False">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#0077B6" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <!-- Слой для анимаций (Canvas) -->
+                    <Canvas x:Name="BattleCanvas" Grid.RowSpan="2" IsHitTestVisible="False"/>
+                </Grid>
+            </Border>
+            
+            <!-- РУКА ИГРОКА -->
+            <Border x:Name="PlayerHandBorder"
+                    Grid.Column="1" Grid.Row="1" 
+                    Background="#D005050A" 
+                    BorderBrush="#300077B6" 
+                    BorderThickness="0,1,0,0" 
+                    Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="8,0,8,12">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="DECK_RESOURCES" FontSize="10" FontWeight="Black" Foreground="#0077B6" VerticalAlignment="Center"/>
+                            <TextBlock Text="[DRAG_AND_DROP_TO_DEPLOY]" FontSize="9" Foreground="#5A5A7A" VerticalAlignment="Center" Margin="12,0,0,0" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <Grid Grid.Row="1" Grid.IsSharedSizeScope="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="SidePanels"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="SidePanels"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Текстовое описание карт со способностями (Слева) -->
+                        <Border Grid.Column="0"
+                                Background="#100077B6" 
+                                BorderBrush="#200077B6" 
+                                BorderThickness="1" 
+                                CornerRadius="4" 
+                                Margin="10,0,10,10"
+                                Padding="12"
+                                MaxWidth="350"
+                                MaxHeight="180"
+                                VerticalAlignment="Bottom">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Grid.Row="0" Text="АКТИВНЫЕ СПОСОБНОСТИ" FontSize="9" Foreground="#5A5A7A" FontWeight="Bold" Margin="0,0,0,12"/>
+                                
+                                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                    <ItemsControl ItemsSource="{Binding PlayerHand}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <!-- Фильтрация: только карты со способностями + только Support (3) и Special (4) -->
+                                                <Border x:Name="ItemBorder" Background="#05FFFFFF" Margin="0,0,0,6" Padding="8,6" CornerRadius="2">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <!-- Показываем только если есть описание способности -->
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition Binding="{Binding Ability, Converter={StaticResource NullToBoolConverter}}" Value="True"/>
+                                                                        <Condition Binding="{Binding CardType}" Value="{x:Static data:CardType.Support}"/>
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </MultiDataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition Binding="{Binding Ability, Converter={StaticResource NullToBoolConverter}}" Value="True"/>
+                                                                        <Condition Binding="{Binding CardType}" Value="{x:Static data:CardType.Special}"/>
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </MultiDataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    
+                                                    <TextBox IsReadOnly="True" 
+                                                             Background="Transparent" 
+                                                             BorderThickness="0" 
+                                                             Foreground="#A0A0B0" 
+                                                             FontSize="10" 
+                                                             Padding="0"
+                                                             TextWrapping="Wrap"
+                                                             Cursor="Arrow">
+                                                        <TextBox.Text>
+                                                            <MultiBinding StringFormat="{}{0} — {1}">
+                                                                <Binding Path="Name"/>
+                                                                <Binding Path="Ability"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                        <TextBox.Style>
+                                                            <Style TargetType="TextBox">
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate TargetType="TextBox">
+                                                                            <ScrollViewer x:Name="PART_ContentHost"/>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style>
+                                                        </TextBox.Style>
+                                                    </TextBox>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Cards (По центру) -->
+                        <ScrollViewer Grid.Column="1"
+                                      HorizontalScrollBarVisibility="Auto" 
+                                      VerticalScrollBarVisibility="Disabled" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"
+                                      AllowDrop="False" 
+                                      PanningMode="None">
+                            <ItemsControl x:Name="PlayerHandItemsControl" ItemsSource="{Binding PlayerHand}" HorizontalAlignment="Center">
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <controls:CardControl Card="{Binding}" Margin="10,0"
+                                                              AllowDrop="True" 
+                                                              DragOver="Card_DragOver" 
+                                                              Drop="Card_Drop"
+                                                              MouseLeftButtonDown="CardControl_MouseLeftButtonDown"
+                                                              PreviewMouseMove="CardControl_PreviewMouseMove"
+                                                              MouseLeftButtonUp="CardControl_MouseLeftButtonUp"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        
+                        <!-- Пустой блок справа для баланса центрирования -->
+                        <Border Grid.Column="2" Width="0"/>
+                    </Grid>
+                </Grid>
+            </Border>
+            
+            <!-- Сообщение о результате игры (Mission Summary) -->
+            <Border Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                    Background="#CC05050A"
+                    Visibility="{Binding GameResult, Converter={StaticResource StringToVisibilityConverter}}"
+                    Panel.ZIndex="1000">
+                <Border BorderBrush="{Binding GameResult, Converter={StaticResource ResultToColorConverter}}" 
+                        BorderThickness="2" CornerRadius="8" 
+                        Background="#F010101A" Padding="40" 
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        MaxWidth="500">
+                    <Border.Effect>
+                        <DropShadowEffect Color="{Binding GameResult, Converter={StaticResource ResultToColorConverter}}" BlurRadius="30" ShadowDepth="0" Opacity="0.4"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="ИТОГИ ОПЕРАЦИИ" FontSize="12" FontWeight="Black" Foreground="#5A5A7A" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+                        
+                        <TextBlock Text="{Binding GameResult}" FontSize="42" FontWeight="Black" 
+                                 Foreground="{Binding GameResult, Converter={StaticResource ResultToColorConverter}}" 
+                                 HorizontalAlignment="Center" Margin="0,0,0,16">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="{Binding GameResult, Converter={StaticResource ResultToColorConverter}}" BlurRadius="15" ShadowDepth="0" Opacity="0.8"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+
+                        <TextBlock Text="Детальные результаты доступны в профиле" 
+                                 FontSize="11" Foreground="#8080A0" 
+                                 HorizontalAlignment="Center" Margin="0,0,0,24"/>
+                        
+                        <Button Content="ВЕРНУТЬСЯ В МЕНЮ" 
+                                Style="{StaticResource ActionButton}" 
+                                Command="{Binding ReturnToMenuCommand}" 
+                                Width="260" Height="50"
+                                HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

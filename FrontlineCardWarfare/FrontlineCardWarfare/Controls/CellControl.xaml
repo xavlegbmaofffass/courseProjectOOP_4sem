@@ -1,0 +1,140 @@
+<UserControl x:Class="FrontlineCardWarfare.Controls.CellControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:FrontlineCardWarfare.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="160" d:DesignWidth="105">
+    <UserControl.Resources>
+        <conv:ImagePathConverter x:Key="ImagePathConverter"/>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Border x:Name="CellRoot"
+            Background="Transparent"
+            CornerRadius="8"
+            BorderBrush="#3A4050"
+            BorderThickness="2"
+            AllowDrop="True"
+            CacheMode="BitmapCache">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#1A2333"/>
+                        <Setter Property="BorderBrush" Value="#600077B6"/>
+                    </Trigger>
+                    <DataTrigger Binding="{Binding IsAvailableForMove}" Value="True">
+                        <Setter Property="BorderBrush" Value="#0077B6"/>
+                        <Setter Property="BorderThickness" Value="3"/>
+                        <Setter Property="Background" Value="#300077B6"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        
+        <Grid>
+            <!-- Рамка всегда видна (даже без юнита) -->
+            <Border CornerRadius="8" BorderBrush="#2A3040" BorderThickness="1"/>
+            
+            <!-- Подсветка для атаки (красная) -->
+            <Border x:Name="AttackHighlight"
+                    Background="Transparent"
+                    CornerRadius="8"
+                    BorderBrush="#FF3860"
+                    BorderThickness="3"
+                    Visibility="{Binding IsAvailableForAttack, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Border.Effect>
+                    <DropShadowEffect Color="#FF3860" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+                </Border.Effect>
+            </Border>
+            
+            <!-- Выделение выбранного юнита -->
+            <Border x:Name="SelectGlow"
+                    Background="Transparent"
+                    CornerRadius="8"
+                    BorderBrush="#0077B6"
+                    BorderThickness="3"
+                    Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Border.Effect>
+                    <DropShadowEffect Color="#0077B6" BlurRadius="20" ShadowDepth="0" Opacity="0.8"/>
+                </Border.Effect>
+            </Border>
+            
+            <!-- Юнит в клетке (теперь в отдельном контейнере для защиты от искажений) -->
+            <Grid Margin="2">
+                <Image x:Name="UnitImage"
+                       Source="{Binding Path=UnitImagePath, Converter={StaticResource ImagePathConverter}}"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       IsHitTestVisible="False"
+                       Visibility="{Binding Path=HasUnit, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Image.Clip>
+                        <RectangleGeometry Rect="0,0,100,160" RadiusX="6" RadiusY="6"/>
+                    </Image.Clip>
+                </Image>
+            </Grid>
+
+            <!-- Характеристики юнита (Атака и Здоровье) -->
+            <Grid VerticalAlignment="Top" Margin="6" 
+                  Visibility="{Binding HasUnit, Converter={StaticResource BoolToVisibilityConverter}}">
+                <!-- Атака (сверху слева) -->
+                <Border Background="#FF4444"
+                        CornerRadius="4"
+                        Width="20" Height="20"
+                        HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Unit.Attack}"
+                              FontSize="10"
+                              FontWeight="Bold"
+                              Foreground="#FFFFFF"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                </Border>
+
+                <!-- Здоровье (сверху справа) -->
+                <Border Background="#4488FF"
+                        CornerRadius="4"
+                        Width="20" Height="20"
+                        HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding Unit.CurrentHealth}"
+                              FontSize="10"
+                              FontWeight="Bold"
+                              Foreground="#FFFFFF"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+            
+            <!-- Индикатор здоровья (полоска внизу) -->
+            <Border x:Name="HealthBarContainer"
+                    Height="6"
+                    VerticalAlignment="Bottom"
+                    Margin="8,0,8,6"
+                    Background="#33000000"
+                    CornerRadius="3"
+                    Visibility="{Binding Path=HasUnit, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Border Width="{Binding HealthPercent, FallbackValue=1}"
+                       Height="6"
+                       HorizontalAlignment="Left"
+                       Background="#0077B6"
+                       CornerRadius="3"/>
+            </Border>
+            
+            <!-- Индикатор замороженного состояния -->
+            <Border x:Name="FrozenOverlay"
+                    Background="#200077B6"
+                    CornerRadius="8"
+                    Visibility="{Binding IsFrozen, Converter={StaticResource BoolToVisibilityConverter}}">
+            </Border>
+            
+            <!-- Индикатор атаки (не может атаковать) -->
+            <Border x:Name="CannotAttackOverlay"
+                    Background="Transparent"
+                    CornerRadius="8"
+                    Visibility="{Binding CannotAttack, Converter={StaticResource BoolToVisibilityConverter}}">
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

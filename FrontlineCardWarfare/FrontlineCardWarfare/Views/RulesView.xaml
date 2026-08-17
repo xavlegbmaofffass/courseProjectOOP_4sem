@@ -1,0 +1,458 @@
+<UserControl x:Class="FrontlineCardWarfare.Views.RulesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="950">
+    <UserControl.Resources>
+        <!-- Стили вкладок -->
+        <Style x:Key="TabButton" TargetType="Button">
+            <Setter Property="Background" Value="#12121F"/>
+            <Setter Property="Foreground" Value="{StaticResource CyberTextSecondaryBrush}"/>
+            <Setter Property="Padding" Value="28,14"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#1A1A2E"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1A1A2E"/>
+                                <Setter Property="BorderBrush" Value="{StaticResource CyberPrimaryBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource CyberTextPrimaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActiveTabButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource CyberPrimaryGradient}"/>
+            <Setter Property="Foreground" Value="{StaticResource CyberTextPrimaryBrush}"/>
+            <Setter Property="Padding" Value="28,14"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="{StaticResource CyberPrimary}" BlurRadius="15" ShadowDepth="0" Opacity="0.5"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="InfoCard" TargetType="Border">
+            <Setter Property="Background" Value="#0C0C18"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="28"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="BorderBrush" Value="#151528"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000000" BlurRadius="20" ShadowDepth="4" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CenteredTitle" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CenteredContentPanel" TargetType="Border" BasedOn="{StaticResource OptimizedAnimatedElement}">
+            <Setter Property="Width" Value="750"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <Style x:Key="RuleTextBlock" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource CyberTextSecondaryBrush}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="LineHeight" Value="24"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="0,4"/>
+        </Style>
+
+        <Style x:Key="RuleHeading" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource CyberTextPrimaryBrush}"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource CyberDarkBrush}" Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#0C0C18" CornerRadius="16" Padding="32" Margin="0,0,0,28"
+                BorderBrush="{StaticResource CyberPrimaryBrush}" BorderThickness="1"
+                Style="{StaticResource OptimizedAnimatedElement}">
+            <Border.Effect>
+                <DropShadowEffect Color="{StaticResource CyberPrimary}" BlurRadius="30" ShadowDepth="0" Opacity="0.2"/>
+            </Border.Effect>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource GlobalCardAppearAnimation}"/>
+                </EventTrigger>
+            </Border.Triggers>
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="ИНФОРМАЦИОННЫЙ ТЕРМИНАЛ" 
+                           FontSize="14" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource CyberPrimaryBrush}" 
+                           FontFamily="Consolas"
+                           TextAlignment="Center"
+                           Margin="0,0,0,10">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="{StaticResource CyberPrimary}" BlurRadius="12" ShadowDepth="0" Opacity="0.7"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="ПРАВИЛА ИГРЫ" 
+                           FontSize="48" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource CyberTextPrimaryBrush}" 
+                           FontFamily="Segoe UI Light"
+                           TextAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="{StaticResource CyberAccent}" BlurRadius="20" ShadowDepth="0" Opacity="0.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <Border Height="2" Width="100" Background="{StaticResource CyberPrimaryGradient}" Margin="0,12,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Вкладки -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,24">
+            <Button x:Name="Tab1Btn" Content="Основные" 
+                    Click="Tab1_Click"
+                    Padding="32,16"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Margin="0,0,12,0"
+                    Style="{StaticResource ActiveTabButton}"/>
+            <Button x:Name="Tab2Btn" Content="Способности" 
+                    Click="Tab2_Click"
+                    Padding="32,16"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Margin="0,0,12,0"
+                    Style="{StaticResource TabButton}"/>
+            <Button x:Name="Tab3Btn" Content="Тактика" 
+                    Click="Tab3_Click"
+                    Padding="32,16"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Style="{StaticResource TabButton}"/>
+        </StackPanel>
+
+        <!-- Контент вкладок -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Основные правила -->
+                <Border x:Name="Tab1Content">
+                    <StackPanel>
+                        <!-- Цель игры -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Цель игры" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="#00E676"/>
+                                    <TextBlock Text="Победа достигается одним из следующих способов:" 
+                                               Style="{StaticResource RuleHeading}"
+                                               Margin="0,0,0,10"/>
+                                    <StackPanel Margin="16,0,0,0">
+                                        <TextBlock Text="• Уничтожение всех юнитов противника" 
+                                                   Style="{StaticResource RuleTextBlock}" Margin="0,4"/>
+                                        <TextBlock Text="• Принуждение противника к сдаче" 
+                                                   Style="{StaticResource RuleTextBlock}" Margin="0,4"/>
+                                        <TextBlock Text="• Противник не может сделать ход (нет доступных действий)" 
+                                                   Style="{StaticResource RuleTextBlock}" Margin="0,4"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+
+                        <!-- Игровое поле -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Игровое поле" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="#40C4FF"/>
+                                    <TextBlock Text="Поле размером 4×4 клетки:" 
+                                               Style="{StaticResource RuleHeading}"
+                                               Margin="0,0,0,8"/>
+                                    <Border Background="#050510" CornerRadius="12" Padding="24" Margin="0,8,0,16" BorderBrush="#1A1A3A" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Ряд 0: [ВРАГ] [ВРАГ] [ВРАГ] [ВРАГ] ← ПЕРЕДОВАЯ ПРОТИВНИКА" 
+                                                       FontFamily="Consolas" FontSize="14" Foreground="{StaticResource CyberErrorBrush}" Margin="0,6"/>
+                                            <TextBlock Text="Ряд 1: [ВРАГ] [ВРАГ] [ВРАГ] [ВРАГ] ← ТЫЛ ПРОТИВНИКА" 
+                                                       FontFamily="Consolas" FontSize="14" Foreground="{StaticResource CyberErrorBrush}" Margin="0,6"/>
+                                            <Border Height="1" Background="#1A1A3A" Margin="0,12"/>
+                                            <TextBlock Text="Ряд 2: [СОЮЗ] [СОЮЗ] [СОЮЗ] [СОЮЗ] ← ВАША ПЕРЕДОВАЯ" 
+                                                       FontFamily="Consolas" FontSize="14" Foreground="{StaticResource CyberSuccessBrush}" Margin="0,6"/>
+                                            <TextBlock Text="Ряд 3: [СОЮЗ] [СОЮЗ] [СОЮЗ] [СОЮЗ] ← ВАШ ТЫЛ" 
+                                                       FontFamily="Consolas" FontSize="14" Foreground="{StaticResource CyberSuccessBrush}" Margin="0,6"/>
+                                            <TextBlock Text="        Кол 0    Кол 1    Кол 2    Кол 3" 
+                                                       FontFamily="Consolas" FontSize="14" Foreground="{StaticResource CyberTextSecondaryBrush}" Margin="0,12,0,0" Opacity="0.6"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <TextBlock Text="• Юнитов можно размещать только на своей стороне (ряды 2-3)" 
+                                               Style="{StaticResource RuleTextBlock}"/>
+                                    <TextBlock Text="• Центральный столбец (Кол 1 и Кол 2) — стратегически важные позиции" 
+                                               Style="{StaticResource RuleTextBlock}"/>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+
+                        <!-- Характеристики карт -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Характеристики карт" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberWarningBrush}"/>
+                                    <UniformGrid Columns="2" Margin="0,10,0,0">
+                                        <StackPanel Margin="0,0,20,16">
+                                            <TextBlock Text="⚔ Attack (Атака)" FontWeight="SemiBold" Foreground="{StaticResource CyberErrorBrush}" FontSize="16" Margin="0,0,0,4"/>
+                                            <TextBlock Text="Урон при атаке (1-8)" Style="{StaticResource RuleTextBlock}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="❤ Health (Здоровье)" FontWeight="SemiBold" Foreground="{StaticResource CyberSuccessBrush}" FontSize="16" Margin="0,0,0,4"/>
+                                            <TextBlock Text="Макс. стойкость юнита (2-10)" Style="{StaticResource RuleTextBlock}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,20,16">
+                                            <TextBlock Text="🏹 Range (Дальность)" FontWeight="SemiBold" Foreground="{StaticResource CyberAccentBrush}" FontSize="16" Margin="0,0,0,4"/>
+                                            <TextBlock Text="Радиус атаки в клетках (1-4)" Style="{StaticResource RuleTextBlock}"/>
+                                        </StackPanel>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+
+                        <!-- Ход игры -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Протокол хода" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberPrimaryBrush}"/>
+                                    
+                                    <Border Background="#121225" CornerRadius="10" Padding="20" Margin="0,8,0,12" BorderBrush="#1A1A3A" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="1. ФАЗА ПОДГОТОВКИ" FontWeight="Bold" Foreground="{StaticResource CyberPrimaryBrush}" FontSize="15" Margin="0,0,0,8"/>
+                                            <TextBlock Text="• +1 очко действия, добор карты, розыгрыш юнитов" Style="{StaticResource RuleTextBlock}"/>
+                                            
+                                            <TextBlock Text="2. ФАЗА ОГНЕВОГО КОНТАКТА" FontWeight="Bold" Foreground="{StaticResource CyberErrorBrush}" FontSize="15" Margin="0,16,0,8"/>
+                                            <TextBlock Text="• Атака целей в радиусе Range (дистанция Манхэттена)" Style="{StaticResource RuleTextBlock}"/>
+                                            
+                                            <TextBlock Text="3. ФАЗА ОБСЛУЖИВАНИЯ" FontWeight="Bold" Foreground="{StaticResource CyberSecondaryBrush}" FontSize="15" Margin="0,16,0,8"/>
+                                            <TextBlock Text="• Снятие эффектов, применение аур, сохранение данных" Style="{StaticResource RuleTextBlock}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+
+                        <!-- Ограничения -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Лимиты и ограничения" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberErrorBrush}"/>
+                                    <UniformGrid Columns="2" Margin="0,10,0,0">
+                                        <TextBlock Text="• Юнитов на поле: 6" Style="{StaticResource RuleTextBlock}"/>
+                                        <TextBlock Text="• Карт в колоде: 20-30" Style="{StaticResource RuleTextBlock}"/>
+                                        <TextBlock Text="• Копий карты: 4" Style="{StaticResource RuleTextBlock}"/>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Способности -->
+                <Border x:Name="Tab2Content" Visibility="Collapsed">
+                    <StackPanel>
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Модификаторы способностей" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberAccentBrush}"/>
+
+                                    <Border Background="#121225" CornerRadius="12" Padding="24" Margin="0,0,0,16" BorderBrush="#1A1A3A" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="💥 Battlecry (Развертывание)" 
+                                                       Style="{StaticResource RuleHeading}"
+                                                       Foreground="{StaticResource CyberErrorBrush}"/>
+                                            <TextBlock Text="Мгновенный эффект, срабатывающий при выходе юнита на поле:" Style="{StaticResource RuleTextBlock}"/>
+                                            <StackPanel Margin="16,8,0,0">
+                                                <TextBlock Text="• Heal — восстановление здоровья поврежденным союзникам" Foreground="{StaticResource CyberSuccessBrush}" Margin="0,4" FontSize="14" FontFamily="Consolas"/>
+                                                <TextBlock Text="• Buff — повышение атаки и максимальной прочности союзных сил" Foreground="{StaticResource CyberWarningBrush}" Margin="0,4" FontSize="14" FontFamily="Consolas"/>
+                                                <TextBlock Text="• Strike — нанесение точечного или массового урона по противнику" Foreground="{StaticResource CyberErrorBrush}" Margin="0,4" FontSize="14" FontFamily="Consolas"/>
+                                                <TextBlock Text="• Grant — передача особых протоколов (способностей) другой боевой единице" Foreground="{StaticResource CyberPrimaryBrush}" Margin="0,4" FontSize="14" FontFamily="Consolas"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Background="#121225" CornerRadius="12" Padding="24" Margin="0,0,0,24" BorderBrush="#1A1A3A" BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="💀 Deathrattle (Последний шанс)" 
+                                                       Style="{StaticResource RuleHeading}"
+                                                       Foreground="{StaticResource CyberTextSecondaryBrush}"/>
+                                            <TextBlock Text="Активируется в момент уничтожения юнита:" Style="{StaticResource RuleTextBlock}"/>
+                                            <StackPanel Margin="16,8,0,0">
+                                                <TextBlock Text="• Rebirth — экстренная перезагрузка системы и возвращение в строй с 1 HP" Foreground="{StaticResource CyberSecondaryBrush}" Margin="0,4" FontSize="14" FontFamily="Consolas"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Background="#00FF9508" CornerRadius="12" Padding="24" BorderBrush="{StaticResource CyberSuccessBrush}" BorderThickness="1" Opacity="0.8">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                                <TextBlock Text="[INFO]" Foreground="{StaticResource CyberSuccessBrush}" FontWeight="Bold" Margin="0,0,16,0" FontFamily="Consolas"/>
+                                                <TextBlock Text="Большинство способностей поддержки требуют наличия союзника в той же колонке." 
+                                                           TextWrapping="Wrap" Foreground="{StaticResource CyberSuccessBrush}" FontSize="14"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="[INFO]" Foreground="{StaticResource CyberSuccessBrush}" FontWeight="Bold" Margin="0,0,16,0" FontFamily="Consolas"/>
+                                                <TextBlock Text="Изучайте ТТХ каждой карты в терминале коллекции перед выходом на передовую." 
+                                                           TextWrapping="Wrap" Foreground="{StaticResource CyberSuccessBrush}" FontSize="14"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Тактика -->
+                <Border x:Name="Tab3Content" Visibility="Collapsed">
+                    <StackPanel>
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Тактические рекомендации" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberSuccessBrush}"/>
+
+                                    <UniformGrid Columns="1">
+                                        <Border Background="#121225" CornerRadius="10" Padding="20" Margin="0,0,0,12" BorderBrush="#1A1A3A" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock Text="🎯 ПРИОРИТЕТ ЦЕЛЕЙ" Style="{StaticResource RuleHeading}" Foreground="{StaticResource CyberErrorBrush}"/>
+                                                <TextBlock Text="Уничтожайте юнитов поддержки и юнитов с мощными способностями Deathrattle в первую очередь. Нейтрализация ключевых целей важнее атаки рядовых бойцов." Style="{StaticResource RuleTextBlock}"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="#121225" CornerRadius="10" Padding="20" Margin="0,0,0,12" BorderBrush="#1A1A3A" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock Text="⚡ ТАКТИЧЕСКИЙ РЕЗЕРВ" Style="{StaticResource RuleHeading}" Foreground="{StaticResource CyberPrimaryBrush}"/>
+                                                <TextBlock Text="Не стремитесь вывести всех юнитов сразу. Сохраняйте карты для тактического маневра или экстренного развертывания в нужный момент." Style="{StaticResource RuleTextBlock}"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="#121225" CornerRadius="10" Padding="20" Margin="0,0,0,12" BorderBrush="#1A1A3A" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock Text="⚡ ГЕОПОЗИЦИОНИРОВАНИЕ" Style="{StaticResource RuleHeading}" Foreground="{StaticResource CyberWarningBrush}"/>
+                                                <TextBlock Text="Дальнобойные юниты (Range 3+) эффективнее всего работают на флангах, перекрывая зоны перемещения противника." Style="{StaticResource RuleTextBlock}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+
+                        <!-- Уровни сложности ИИ -->
+                        <Border Style="{StaticResource CenteredContentPanel}">
+                            <Border Style="{StaticResource InfoCard}">
+                                <StackPanel>
+                                    <TextBlock Text="Режимы симуляции противника" 
+                                               Style="{StaticResource CenteredTitle}"
+                                               Foreground="{StaticResource CyberAccentBrush}"/>
+
+                                    <UniformGrid Columns="3">
+                                        <Border Background="#0A2A1A" CornerRadius="10" Padding="16" Margin="4">
+                                            <StackPanel>
+                                                <TextBlock Text="[RECRUIT]" Foreground="{StaticResource CyberSuccessBrush}" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Низкий приоритет тактики. 30% шанс критических ошибок систем." FontSize="12" Style="{StaticResource RuleTextBlock}" TextAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="#2A2A0A" CornerRadius="10" Padding="16" Margin="4">
+                                            <StackPanel>
+                                                <TextBlock Text="[VETERAN]" Foreground="{StaticResource CyberWarningBrush}" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Сбалансированный анализ. 15% шанс ошибок. Оценивает угрозы." FontSize="12" Style="{StaticResource RuleTextBlock}" TextAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Background="#2A0A0A" CornerRadius="10" Padding="16" Margin="4">
+                                            <StackPanel>
+                                                <TextBlock Text="[ELITE]" Foreground="{StaticResource CyberErrorBrush}" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Максимальная эффективность. Глубокий анализ поля. 5% ошибок." FontSize="12" Style="{StaticResource RuleTextBlock}" TextAlignment="Center"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </UniformGrid>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Кнопка назад -->
+        <Border Grid.Row="3" Margin="0,20,0,0">
+            <Button Content="ВЕРНУТЬСЯ В ГЛАВНОЕ МЕНЮ" 
+                    Command="{Binding BackToMenuCommand}" 
+                    Style="{StaticResource TabButton}"
+                    HorizontalAlignment="Center"
+                    Width="300"
+                    FontFamily="Consolas"
+                    FontSize="15"/>
+        </Border>
+    </Grid>
+</UserControl>

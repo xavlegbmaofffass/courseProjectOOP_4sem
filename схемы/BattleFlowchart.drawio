@@ -1,0 +1,202 @@
+<mxfile host="app.diagrams.net" agent="Gemini-CLI">
+  <diagram id="structured-battle-process" name="Алгоритм процесса боя (Структурированный)">
+    <mxGraphModel dx="551450" dy="444170" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1653" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-4" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="init" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" value="Начало" vertex="1">
+          <mxGeometry height="40" width="120" x="400" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-6" edge="1" parent="1" source="init" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="Xm7jgZs127pBB5ZXq2Pz-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="init" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Инициализация боя:&lt;br&gt;Загрузка колод, создание поля, раздача&amp;nbsp;карт" vertex="1">
+          <mxGeometry height="60" width="160" x="380" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-2" edge="1" parent="1" source="check_gameover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gameover_proc" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-3" connectable="0" parent="Xm7jgZs127pBB5ZXq2Pz-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Да" vertex="1">
+          <mxGeometry relative="1" x="-0.1872" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-14" edge="1" parent="1" source="check_gameover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="670" y="1140" />
+              <mxPoint x="670" y="270" />
+            </Array>
+            <mxPoint x="820" y="990" as="sourcePoint" />
+            <mxPoint x="460" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-16" connectable="0" parent="Xm7jgZs127pBB5ZXq2Pz-14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Нет" vertex="1">
+          <mxGeometry relative="1" x="-0.8874" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="check_gameover" parent="1" style="rhombus;whiteSpace=wrap;html=1;rounded=0;fontSize=10;" value="Условие победы/&#xa;поражения выполнено?" vertex="1">
+          <mxGeometry height="80" width="160" x="400" y="1100" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-1" edge="1" parent="1" source="gameover_proc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="end" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gameover_proc" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Завершение игры:&#xa;Сбор статистики, сохранение&#xa;результата в БД" vertex="1">
+          <mxGeometry height="60" width="160" x="400" y="1230" as="geometry" />
+        </mxCell>
+        <mxCell id="end" parent="1" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" value="Конец" vertex="1">
+          <mxGeometry height="40" width="100" x="430" y="1330" as="geometry" />
+        </mxCell>
+        <mxCell id="check_turn" parent="1" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" value="Чей сейчас ход?" vertex="1">
+          <mxGeometry height="80" width="160" x="380" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-22" edge="1" parent="1" source="player_wait" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="Xm7jgZs127pBB5ZXq2Pz-17" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="player_wait" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Ожидание действий игрока&#xa;(UI взаимодействие)" vertex="1">
+          <mxGeometry height="60" width="160" x="250" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-8" edge="1" parent="1" source="ai_thinking" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ai_exec" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_thinking" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ИИ анализирует поле&#xa;(AIController.MakeTurnAsync)" vertex="1">
+          <mxGeometry height="60" width="160" x="490" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-21" edge="1" parent="1" source="action_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_play" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="action_play" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" value="Ввод: Перетаскивание&#xa;карты на поле" vertex="1">
+          <mxGeometry height="50" width="160" x="250" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="action_end" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rounded=0;" value="Ввод: Нажатие кнопки&#xa;&quot;Завершить ход&quot;" vertex="1">
+          <mxGeometry height="50" width="160" x="50" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-11" edge="1" parent="1" source="val_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="err_play" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-12" connectable="0" parent="Xm7jgZs127pBB5ZXq2Pz-11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Нет" vertex="1">
+          <mxGeometry relative="1" x="-0.1974" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-25" edge="1" parent="1" source="val_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="action_play">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-26" edge="1" parent="1" source="val_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="action_end">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="670" />
+              <mxPoint x="140" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-27" connectable="0" parent="Xm7jgZs127pBB5ZXq2Pz-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Да" vertex="1">
+          <mxGeometry relative="1" x="-0.8615" as="geometry">
+            <mxPoint y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="val_play" parent="1" style="rhombus;whiteSpace=wrap;html=1;rounded=0;" value="Клетка свободна и&#xa;на стороне игрока?" vertex="1">
+          <mxGeometry height="80" width="160" x="250" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-13" edge="1" parent="1" source="err_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="player_wait">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="err_play" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Ошибка: Некорректная&#xa;позиция" vertex="1">
+          <mxGeometry height="60" width="160" x="50" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-28" edge="1" parent="1" source="exec_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_attack" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_play" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=11;" value="&lt;font&gt;BattleManager.PlayCardAsync:&lt;br&gt;Создание юнита, применение способностей&lt;br&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="160" x="250" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-29" edge="1" parent="1" source="exec_attack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_end" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_attack" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="BattleManager.Attack:&lt;br&gt;Расчет урона, анимации," vertex="1">
+          <mxGeometry height="70" width="160" x="250" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-31" edge="1" parent="1" source="exec_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="check_gameover">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="exec_end" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="EndTurnAsync:&lt;br&gt;Сброс флагов, смена хода на ИИ,&lt;br&gt;добор карт игроком" vertex="1">
+          <mxGeometry height="70" width="160" x="250" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-9" edge="1" parent="1" source="ai_exec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ai_complete" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_exec" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ИИ выполняет действия:&#xa;Розыгрыш карт, атаки" vertex="1">
+          <mxGeometry height="60" width="160" x="490" y="485" as="geometry" />
+        </mxCell>
+        <mxCell id="ai_complete" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Завершение хода ИИ:&lt;br&gt;Сброс флагов, смена хода на Игрока,&lt;br&gt;добор карт врагом" vertex="1">
+          <mxGeometry height="60" width="160" x="490" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="init" value="" />
+        <mxCell id="e2" edge="1" parent="1" source="init" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="check_gameover" value="" />
+        <mxCell id="e3" edge="1" parent="1" source="check_gameover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gameover_proc" value="Да" />
+        <mxCell id="e4" edge="1" parent="1" source="gameover_proc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="end" value="" />
+        <mxCell id="e5" edge="1" parent="1" source="check_gameover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="check_turn" value="Нет" />
+        <mxCell id="e6" edge="1" parent="1" source="check_turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="player_wait" value="Игрок">
+          <mxGeometry relative="1" x="-0.4286" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="330" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="check_turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ai_thinking" value="ИИ">
+          <mxGeometry relative="1" x="-0.7143" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="570" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="action_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="val_play" value="" />
+        <mxCell id="e12" edge="1" parent="1" source="val_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="err_play" value="Нет" />
+        <mxCell id="e13" edge="1" parent="1" source="val_play" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_play" value="Да" />
+        <mxCell id="e14" edge="1" parent="1" source="action_attack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="val_attack" value="" />
+        <mxCell id="e15" edge="1" parent="1" source="val_attack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="err_attack" value="Нет" />
+        <mxCell id="e16" edge="1" parent="1" source="val_attack" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_attack" value="Да" />
+        <mxCell id="e17" edge="1" parent="1" source="action_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="exec_end" value="" />
+        <mxCell id="e18" edge="1" parent="1" source="ai_thinking" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ai_exec" value="" />
+        <mxCell id="e19" edge="1" parent="1" source="ai_exec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ai_complete" value="" />
+        <mxCell id="e25" edge="1" parent="1" source="ai_complete" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="check_gameover" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="1080" />
+              <mxPoint x="480" y="1080" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-7" edge="1" parent="1" source="Xm7jgZs127pBB5ZXq2Pz-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="check_turn" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Первый ход игрока" vertex="1">
+          <mxGeometry height="60" width="160" x="380" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-23" edge="1" parent="1" source="Xm7jgZs127pBB5ZXq2Pz-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="val_play" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Выбор юнита&lt;br&gt;и цели для атаки" vertex="1">
+          <mxGeometry height="60" width="160" x="250" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="Xm7jgZs127pBB5ZXq2Pz-30" edge="1" parent="1" source="action_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.6;entryDx=0;entryDy=0;entryPerimeter=0;" target="exec_end">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="1032" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

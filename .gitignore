@@ -1,0 +1,9 @@
+# Сборки и кэш
+publish/
+bin/
+obj/
+FrontlineCardWarfareExe/
+
+# Тяжелые форматы
+*.dll
+*.exe

@@ -1,0 +1,144 @@
+<UserControl x:Class="FrontlineCardWarfare.Views.GameResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:FrontlineCardWarfare.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="#1a1a2e">
+    <UserControl.Resources>
+        <Style x:Key="ResultButton" TargetType="Button">
+            <Setter Property="Background" Value="#4a4a6a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="30,15"/>
+            <Setter Property="Margin" Value="20,10"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#6a6a8a"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5a5a7a"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#5c5cb2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="StatItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="Margin" Value="0,8"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Resources>
+            <Storyboard x:Key="FadeInStoryboard">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="0" To="1" Duration="0:0:0.5"/>
+                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                    From="0,50,0,0" To="0,0,0,0" 
+                                    Duration="0:0:0.5"
+                                    AccelerationRatio="0.7"/>
+            </Storyboard>
+        </Grid.Resources>
+
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+            </EventTrigger>
+        </Grid.Triggers>
+
+        <Border Background="{Binding ResultColor}" Opacity="0.1" 
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+        <ScrollViewer HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Margin="40">
+                <!-- Результат -->
+                <TextBlock Text="{Binding ResultTitle}"
+                           FontSize="72" FontWeight="Bold"
+                           Foreground="{Binding ResultColor}"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,30">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="20" ShadowDepth="5" Color="{Binding ResultColor}"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <!-- Статистика игры -->
+                <Border Background="#2a2a4a" CornerRadius="15" Padding="30" Margin="0,0,0,30">
+                    <StackPanel>
+                        <TextBlock Text="Статистика партии"
+                                   FontSize="24" FontWeight="SemiBold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,0,0,20"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="🎯 Количество ходов: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding TurnCount}" Style="{StaticResource StatItem}" FontWeight="Bold"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="⚔️ Урон игрока: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding PlayerDamageDealt}" Style="{StaticResource StatItem}" FontWeight="Bold" Foreground="#4CAF50"/>
+                            <TextBlock Text="  |  " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="Урон противника: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding EnemyDamageDealt}" Style="{StaticResource StatItem}" FontWeight="Bold" Foreground="#F44336"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="💀 Убито игроком: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding PlayerUnitsKilled}" Style="{StaticResource StatItem}" FontWeight="Bold"/>
+                            <TextBlock Text="  |  " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="Убито противником: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding EnemyUnitsKilled}" Style="{StaticResource StatItem}" FontWeight="Bold"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="🃏 Карты игрока: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding PlayerCardsRemaining}" Style="{StaticResource StatItem}" FontWeight="Bold"/>
+                            <TextBlock Text="  |  " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="Карты противника: " Style="{StaticResource StatItem}"/>
+                            <TextBlock Text="{Binding EnemyCardsRemaining}" Style="{StaticResource StatItem}" FontWeight="Bold"/>
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding DifficultyDisplay}"
+                                   Style="{StaticResource StatItem}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,15,0,0"
+                                   FontSize="16" FontStyle="Italic"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Кнопки действий -->
+                <StackPanel HorizontalAlignment="Center">
+                    <Button Content="🔄 Сыграть ещё раз"
+                            Command="{Binding PlayAgainCommand}"
+                            Style="{StaticResource ResultButton}"/>
+                    
+                    <Button Content="🏠 В главное меню"
+                            Command="{Binding BackToMenuCommand}"
+                            Style="{StaticResource ResultButton}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

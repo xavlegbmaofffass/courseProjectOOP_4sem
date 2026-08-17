@@ -1,0 +1,142 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Frontline Use Case" id="frontline-single-page">
+    <mxGraphModel dx="614" dy="782" grid="0" gridSize="10" guides="0" tooltips="1" connect="0" arrows="0" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sys" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;verticalAlign=top;spacingTop=6;textShadow=0;" value="" vertex="1">
+          <mxGeometry height="714" width="626" x="995" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="actor-player" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Игрок&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="55" x="1638" y="214" as="geometry" />
+        </mxCell>
+        <mxCell id="actor-admin" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Администратор&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="55" x="1642" y="417" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-register" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Регистрация&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1465" y="47" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-login" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Авторизация&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1467" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-guest" parent="1" style="ellipse;whiteSpace=wrap;html=1;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Гостевой вход&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1439" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-battle" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Проведение боя&#xa;с ИИ&lt;/font&gt;" vertex="1">
+          <mxGeometry height="51" width="130.2" x="1399" y="292" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-difficulty" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Выбор сложности&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1253" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-surrender" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Сдача в бою&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1211" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-deck-manage" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Управление&#xa;колодами&lt;/font&gt;" vertex="1">
+          <mxGeometry height="53.24" width="136" x="1311" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-deck-create" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Создание колоды&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1145" y="187" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-deck-validate" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Валидация колоды&lt;/font&gt;" vertex="1">
+          <mxGeometry height="46.12" width="118" x="1088" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-collection" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Просмотр коллекции&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1108" y="301" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-profile" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Управление профилем&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1295" y="123" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-stats" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Просмотр статистики&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44.17" width="113" x="1020" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-settings" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Настройки звука&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1019" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-rules" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Просмотр правил&lt;/font&gt;" vertex="1">
+          <mxGeometry height="46.12" width="118" x="1076" y="59" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-users" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Управление&#xa;пользователями&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1448" y="638" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-block" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Блокировка игрока&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1256" y="597" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-cards" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#000000,#070707);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(7, 7, 7));&quot;&gt;Управление картами&lt;/font&gt;" vertex="1">
+          <mxGeometry height="47" width="120" x="1402" y="506" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-card-add" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Добавление карты&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1104" y="536" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-card-edit" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Редактирование карты&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44.56" width="114" x="1098" y="483" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin-card-delete" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeColor=light-dark(#666666,#000000);fillColor=none;fontColor=#000000;textShadow=0;" value="&lt;font style=&quot;color: light-dark(rgb(102, 102, 102), rgb(0, 0, 0));&quot;&gt;Удаление карты&lt;/font&gt;" vertex="1">
+          <mxGeometry height="43" width="110" x="1101" y="417" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-1" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-register">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-2" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-3" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-battle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-4" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-deck-manage">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-5" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-profile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-player-6" edge="1" parent="1" source="actor-player" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-guest">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-admin-1" edge="1" parent="1" source="actor-admin" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-admin-2" edge="1" parent="1" source="actor-admin" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-admin-users">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-admin-3" edge="1" parent="1" source="actor-admin" style="endArrow=none;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);orthogonal=0;fontColor=#000000;textShadow=0;" target="uc-admin-cards">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-difficulty" edge="1" parent="1" source="uc-difficulty" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-battle" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-surrender" edge="1" parent="1" source="uc-surrender" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-battle" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-deck-create" edge="1" parent="1" source="uc-deck-create" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-deck-manage" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-deck-validate" edge="1" parent="1" source="uc-deck-validate" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-deck-manage" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-collection" edge="1" parent="1" source="uc-collection" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-deck-manage" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-stats" edge="1" parent="1" source="uc-stats" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-profile" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-settings" edge="1" parent="1" source="uc-settings" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-profile" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-rules" edge="1" parent="1" source="uc-rules" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-profile" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-admin-block" edge="1" parent="1" source="uc-admin-block" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-admin-users" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-admin-card-add" edge="1" parent="1" source="uc-admin-card-add" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-admin-cards" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-admin-card-edit" edge="1" parent="1" source="uc-admin-card-edit" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-admin-cards" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-admin-card-delete" edge="1" parent="1" source="uc-admin-card-delete" style="endArrow=classic;dashed=1;html=1;rounded=0;strokeColor=light-dark(#000000,#070707);fontColor=light-dark(#000000,#000000);labelBackgroundColor=light-dark(#FFFFFF,#FFFFFF);fontSize=10;textShadow=0;" target="uc-admin-cards" value="&amp;lt;&amp;lt;расширить&amp;gt;&amp;gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

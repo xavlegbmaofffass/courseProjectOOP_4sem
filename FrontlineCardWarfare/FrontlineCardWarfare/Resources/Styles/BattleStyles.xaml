@@ -1,0 +1,596 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ========================================== -->
+    <!-- BATTLE SCREEN - ENHANCED CYBERPUNK THEME -->
+    <!-- Улучшенная цветовая схема с глубокими градиентами -->
+    <!-- ========================================== -->
+
+    <!-- ===== ОСНОВНЫЕ ЦВЕТА ===== -->
+    <!-- Фон поля: тёмно-фиолетовый → чёрный по краям -->
+    <Color x:Key="BattleFieldDark">#0D0D14</Color>
+    <Color x:Key="BattleFieldDarkMedium">#1A1A2E</Color>
+    <Color x:Key="BattleFieldLight">#252540</Color>
+
+    <!-- Акцентные цвета: неоновый бирюзовый, фиолетовый, оранжевый -->
+    <Color x:Key="AccentTurquoise">#0077B6</Color>
+    <Color x:Key="AccentPurple">#7C3AED</Color>
+    <Color x:Key="AccentOrange">#FF6B00</Color>
+    <Color x:Key="AccentGreen">#0077B6</Color>
+    <Color x:Key="AccentRed">#FF3860</Color>
+    <Color x:Key="AccentGold">#FFD700</Color>
+
+    <!-- Цвета сторон -->
+    <Color x:Key="PlayerSideAccent">#0077B6</Color>
+    <Color x:Key="PlayerSideGlow">#0077B6</Color>
+    <Color x:Key="EnemySideAccent">#FF3860</Color>
+    <Color x:Key="EnemySideGlow">#FF00E5</Color>
+
+    <!-- ===== КИСТИ ===== -->
+    <SolidColorBrush x:Key="BattleFieldDarkBrush" Color="{StaticResource BattleFieldDark}"/>
+    <SolidColorBrush x:Key="BattleFieldDarkMediumBrush" Color="{StaticResource BattleFieldDarkMedium}"/>
+    <SolidColorBrush x:Key="BattleFieldLightBrush" Color="{StaticResource BattleFieldLight}"/>
+    <SolidColorBrush x:Key="AccentTurquoiseBrush" Color="{StaticResource AccentTurquoise}"/>
+    <SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurple}"/>
+    <SolidColorBrush x:Key="AccentOrangeBrush" Color="{StaticResource AccentOrange}"/>
+    <SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreen}"/>
+    <SolidColorBrush x:Key="AccentRedBrush" Color="{StaticResource AccentRed}"/>
+    <SolidColorBrush x:Key="AccentGoldBrush" Color="{StaticResource AccentGold}"/>
+    <SolidColorBrush x:Key="PlayerSideAccentBrush" Color="{StaticResource PlayerSideAccent}"/>
+    <SolidColorBrush x:Key="EnemySideAccentBrush" Color="{StaticResource EnemySideAccent}"/>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#A0A0B0"/>
+
+    <!-- ===== ГРАДИЕНТЫ ===== -->
+    <!-- Радиальный градиент фона: тёмно-фиолетовый → чёрный по краям -->
+    <RadialGradientBrush x:Key="BattlefieldBackground">
+        <GradientStop Color="#1A1A3E" Offset="0"/>
+        <GradientStop Color="#0D0D14" Offset="0.7"/>
+        <GradientStop Color="#050508" Offset="1"/>
+    </RadialGradientBrush>
+
+    <!-- Градиент зоны игрока: синий/бирюзовый акцент -->
+    <LinearGradientBrush x:Key="PlayerSideGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#0A1A2E" Offset="0"/>
+        <GradientStop Color="#0D1525" Offset="0.5"/>
+        <GradientStop Color="#050810" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент зоны противника: красный акцент -->
+    <LinearGradientBrush x:Key="EnemySideGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#1F0A10" Offset="0"/>
+        <GradientStop Color="#150508" Offset="0.5"/>
+        <GradientStop Color="#0A0205" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент для подсветки перемещения: синее свечение -->
+    <LinearGradientBrush x:Key="MoveHighlightGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0077B630" Offset="0"/>
+        <GradientStop Color="#0077B630" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент для подсветки атаки: красное свечение -->
+    <LinearGradientBrush x:Key="AttackHighlightGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF000030" Offset="0"/>
+        <GradientStop Color="#FF386030" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент рамки карты: золотой для редких, синий для обычных -->
+    <LinearGradientBrush x:Key="CardBorderRare" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FFD700" Offset="0"/>
+        <GradientStop Color="#B8860B" Offset="0.5"/>
+        <GradientStop Color="#FFD700" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="CardBorderCommon" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0077B6" Offset="0"/>
+        <GradientStop Color="#7C3AED" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент для заголовков карт -->
+    <LinearGradientBrush x:Key="CardHeaderGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#252540" Offset="0"/>
+        <GradientStop Color="#2D2D4A" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент для панели UI -->
+    <LinearGradientBrush x:Key="UIPanelGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#1A1A2ECC" Offset="0"/>
+        <GradientStop Color="#151525CC" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- Градиент для клетки поля боя -->
+    <LinearGradientBrush x:Key="CellBackgroundGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#1A1A2E" Offset="0"/>
+        <GradientStop Color="#12121A" Offset="1"/>
+    </LinearGradientBrush>
+
+    <!-- ===== ЭФФЕКТЫ СВЕЧЕНИЯ ===== -->
+    <!-- Синее свечение для доступных клеток (blur 15px) -->
+    <DropShadowEffect x:Key="MoveGlow" Color="#0077B6" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+    <DropShadowEffect x:Key="MoveGlowStrong" Color="#0077B6" BlurRadius="25" ShadowDepth="0" Opacity="0.8"/>
+
+    <!-- Красное свечение для целей атаки (blur 15px) -->
+    <DropShadowEffect x:Key="AttackGlow" Color="#FF0000" BlurRadius="15" ShadowDepth="0" Opacity="0.6"/>
+    <DropShadowEffect x:Key="AttackGlowStrong" Color="#FF3860" BlurRadius="25" ShadowDepth="0" Opacity="0.8"/>
+
+    <!-- Свечение карт при наведении (white glow, blur 10px) -->
+    <DropShadowEffect x:Key="CardHoverGlow" Color="#FFFFFF" BlurRadius="10" ShadowDepth="0" Opacity="0.5"/>
+    <DropShadowEffect x:Key="CardHoverGlowStrong" Color="#7C3AED" BlurRadius="30" ShadowDepth="0" Opacity="0.7"/>
+
+    <!-- Тени для карт: многослойная тень для эффекта «парения» -->
+    <DropShadowEffect x:Key="CardShadow" Color="#000000" BlurRadius="15" ShadowDepth="5" Opacity="0.5"/>
+    <DropShadowEffect x:Key="CardShadowStrong" Color="#000000" BlurRadius="25" ShadowDepth="8" Opacity="0.6"/>
+
+    <!-- Тени для UI-панелей: мягкая тень -->
+    <DropShadowEffect x:Key="UIPanelShadow" Color="#000000" BlurRadius="20" ShadowDepth="5" Opacity="0.4"/>
+
+    <!-- Свечение для индикаторов -->
+    <DropShadowEffect x:Key="TurquoiseGlow" Color="#0077B6" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+    <DropShadowEffect x:Key="PurpleGlow" Color="#7C3AED" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+    <DropShadowEffect x:Key="RedGlow" Color="#FF3860" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+    <DropShadowEffect x:Key="TurquoiseGlowAlt" Color="#0077B6" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+
+    <!-- ===== СТИЛИ КНОПОК ===== -->
+    <Style x:Key="PrimaryActionButton" TargetType="Button">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="40,16"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12"
+                            Padding="{TemplateBinding Padding}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" 
+                                            BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Border.BorderBrush" Value="#FFFFFF"/>
+                            <Setter Property="Border.BorderThickness" Value="2"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DangerActionButton" TargetType="Button" BasedOn="{StaticResource PrimaryActionButton}">
+        <Style.Setters>
+            <Setter Property="Background" Value="#FF3860"/>
+            <Setter Property="BorderBrush" Value="#FF6B8A"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="EndTurnButton" TargetType="Button" BasedOn="{StaticResource PrimaryActionButton}">
+        <Style.Setters>
+            <Setter Property="Background" Value="#3B82F6"/>
+            <Setter Property="BorderBrush" Value="#0077B6"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style.Setters>
+    </Style>
+
+    <!-- ===== СТИЛИ КАРТОЧЕК ЮНИТОВ ===== -->
+    <DataTemplate x:Key="UnitCardTemplate">
+        <Border x:Name="UnitBorder"
+                Background="#1A1A2E"
+                CornerRadius="12"
+                Padding="12"
+                Margin="6">
+            <Border.Effect>
+                <DropShadowEffect Color="#0077B6" BlurRadius="20" ShadowDepth="5" Opacity="0.4"/>
+            </Border.Effect>
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0077B6" Offset="0"/>
+                    <GradientStop Color="#7C3AED" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.BorderThickness>2</Border.BorderThickness>
+            <Border.RenderTransform>
+                <ScaleTransform/>
+            </Border.RenderTransform>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1" Duration="0:0:0.3">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
+                                             From="0.85" To="1" Duration="0:0:0.3">
+                                <DoubleAnimation.EasingFunction>
+                                    <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
+                                             From="0.85" To="1" Duration="0:0:0.3">
+                                <DoubleAnimation.EasingFunction>
+                                    <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Изображение юнита -->
+                <Border Grid.Row="0"
+                        Background="#0D0D14"
+                        CornerRadius="8"
+                        Height="80"
+                        Margin="0,0,0,8">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#0077B6" Offset="0"/>
+                            <GradientStop Color="#7C3AED" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <Border.BorderThickness>1</Border.BorderThickness>
+                    <Image Source="{Binding Card.ImagePath, Converter={StaticResource ImagePathConverter}}"
+                           Stretch="UniformToFill"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                        <Image.Clip>
+                            <RectangleGeometry Rect="0,0,1,1" RadiusX="8" RadiusY="8"/>
+                        </Image.Clip>
+                    </Image>
+                </Border>
+
+                <!-- Имя юнита -->
+                <TextBlock Grid.Row="1"
+                           Text="{Binding Card.Name}"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="#FFFFFF"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           MaxHeight="36"
+                           Margin="0,0,0,6">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="#0077B6" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <!-- Характеристики -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Здоровье -->
+                    <Border Background="#1A1A2E"
+                            CornerRadius="6"
+                            Padding="8,4"
+                            Grid.Column="0">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FF3860" BlurRadius="10" ShadowDepth="0" Opacity="0.3"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <ProgressBar Minimum="0"
+                                         Maximum="{Binding MaxHealth}"
+                                         Value="{Binding CurrentHealth}"
+                                         Height="6"
+                                         Width="50"
+                                         Foreground="#FF3860"
+                                         Background="#2D2D44"/>
+                            <TextBlock HorizontalAlignment="Center">
+                                <Run Text="{Binding CurrentHealth}" FontWeight="Bold" Foreground="#FFFFFF" FontSize="10"/>
+                                <Run Text="/" Foreground="#5B5B7A" FontSize="8"/>
+                                <Run Text="{Binding MaxHealth}" Foreground="#5B5B7A" FontSize="8"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <Rectangle Grid.Column="1" Fill="#4A4A6A" Width="1" Margin="6,0"/>
+
+                    <!-- Атака/Скорость -->
+                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,4,0">
+                        <Border Background="#1A1A2E" CornerRadius="4" Padding="6,2" Margin="0,0,0,2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚔️" FontSize="10" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Attack}" FontWeight="Bold" Foreground="#FF6B00" FontSize="10"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#1A1A2E" CornerRadius="4" Padding="6,2">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="⚡" FontSize="10" Margin="0,0,4,0"/>
+                                <TextBlock Text="{Binding Speed}" FontWeight="Bold" Foreground="#0077B6" FontSize="10"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Статус: готов/перемещён/атаковал -->
+                <Border x:Name="StatusIndicator"
+                        Grid.Row="3"
+                        Background="#0077B630"
+                        CornerRadius="6"
+                        Padding="6"
+                        Margin="0,6,0,0"
+                        BorderBrush="#0077B6"
+                        BorderThickness="1"
+                        Visibility="Collapsed">
+                    <TextBlock Text="✓ ГОТОВ"
+                               FontSize="9"
+                               FontWeight="SemiBold"
+                               Foreground="#0077B6"
+                               TextAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <!-- ===== СТИЛИ КАРТОЧЕК В РУКЕ ===== -->
+    <DataTemplate x:Key="CardInHandTemplate">
+        <Border x:Name="CardBorder"
+                Background="#1A1A2E"
+                CornerRadius="12"
+                Padding="6"
+                Margin="4,2"
+                AllowDrop="True"
+                Width="90">
+            <Border.Effect>
+                <DropShadowEffect Color="#7C3AED" BlurRadius="15" ShadowDepth="3" Opacity="0.4"/>
+            </Border.Effect>
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#4A4A6A" Offset="0"/>
+                    <GradientStop Color="#7C3AED" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.BorderThickness>2</Border.BorderThickness>
+            <Border.RenderTransform>
+                <ScaleTransform/>
+            </Border.RenderTransform>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
+                                             To="1.1" Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
+                                             To="1.15" Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                             To="30" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                             To="0.7" Duration="0:0:0.2"/>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Color)"
+                                            To="#7C3AED" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
+                                             To="1" Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
+                                             To="1" Duration="0:0:0.2">
+                                <DoubleAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.BlurRadius)"
+                                             To="15" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                                             To="0.4" Duration="0:0:0.2"/>
+                            <ColorAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Color)"
+                                            To="#7C3AED" Duration="0:0:0.2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+
+            <Grid>
+                <!-- Изображение карты -->
+                <Border Background="#0D0D14"
+                        CornerRadius="8"
+                        Height="110"
+                        Width="75">
+                    <Image Source="{Binding ImagePath, Converter={StaticResource ImagePathConverter}}"
+                           Stretch="UniformToFill">
+                        <Image.Clip>
+                            <RectangleGeometry Rect="0,0,1,1" RadiusX="8" RadiusY="8"/>
+                        </Image.Clip>
+                    </Image>
+                </Border>
+
+                <!-- Индикатор недоступности -->
+                <Border Background="#000000AA"
+                        CornerRadius="8"
+                        Visibility="{Binding IsPlayable, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
+                    <Border.Effect>
+                        <BlurEffect Radius="2"/>
+                    </Border.Effect>
+                    <TextBlock Text="🔒"
+                               FontSize="14"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <!-- ===== СТИЛИ КЛЕТОК ПОЛЯ ===== -->
+    <Style x:Key="BattleCellStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Пустая клетка -->
+    <Style x:Key="EmptyCell" TargetType="Border" BasedOn="{StaticResource BattleCellStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#4A4A6A60"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#4A4A6A" BlurRadius="10" ShadowDepth="0" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Клетка для перемещения (бирюзовое свечение) -->
+    <Style x:Key="MoveableCell" TargetType="Border" BasedOn="{StaticResource BattleCellStyle}">
+        <Setter Property="Background" Value="#100077B6"/>
+        <Setter Property="BorderBrush" Value="#0077B6"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#0077B6" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#0077B6" BlurRadius="30" ShadowDepth="0" Opacity="0.8"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="#200077B6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Клетка для атаки (красное свечение) -->
+    <Style x:Key="AttackableCell" TargetType="Border" BasedOn="{StaticResource BattleCellStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#FF3860"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#FF3860" BlurRadius="20" ShadowDepth="0" Opacity="0.6"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#FF3860" BlurRadius="30" ShadowDepth="0" Opacity="0.8"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="#10FF3860"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Клетка с выбранным юнитом -->
+    <Style x:Key="SelectedUnitCell" TargetType="Border" BasedOn="{StaticResource BattleCellStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#0077B6"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#0077B6" BlurRadius="25" ShadowDepth="0" Opacity="0.7"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ===== АНИМАЦИИ ===== -->
+    <!-- Анимация появления -->
+    <Storyboard x:Key="AppearAnimation">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0" To="1" Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+                <CubicEase EasingMode="EaseOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                         From="0.85" To="1" Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                         From="0.85" To="1" Duration="0:0:0.3">
+            <DoubleAnimation.EasingFunction>
+                <BackEase EasingMode="EaseOut" Amplitude="0.2"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+    </Storyboard>
+
+    <!-- Анимация пульсации (для индикатора хода) -->
+    <Storyboard x:Key="PulseAnimation" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleX)"
+                         From="1" To="1.03" Duration="0:0:0.75" AutoReverse="True">
+            <DoubleAnimation.EasingFunction>
+                <SineEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(ScaleTransform.ScaleY)"
+                         From="1" To="1.03" Duration="0:0:0.75" AutoReverse="True">
+            <DoubleAnimation.EasingFunction>
+                <SineEase EasingMode="EaseInOut"/>
+            </DoubleAnimation.EasingFunction>
+        </DoubleAnimation>
+        <DoubleAnimation Storyboard.TargetProperty="(Border.Effect).(DropShadowEffect.Opacity)"
+                         From="0.5" To="0.8" Duration="0:0:0.75" AutoReverse="True"/>
+    </Storyboard>
+
+    <!-- Анимация мигания -->
+    <Storyboard x:Key="BlinkAnimation" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="1" To="0.6" Duration="0:0:0.5" AutoReverse="True"/>
+    </Storyboard>
+
+    <!-- Анимация вращения (для спиннера ИИ) -->
+    <Storyboard x:Key="SpinAnimation" RepeatBehavior="Forever">
+        <DoubleAnimation Storyboard.TargetProperty="(Border.RenderTransform).(RotateTransform.Angle)"
+                         From="0" To="360" Duration="0:0:1.5"/>
+    </Storyboard>
+
+</ResourceDictionary>

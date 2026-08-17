@@ -1,0 +1,96 @@
+<mxfile host="app.diagrams.net" agent="GeminiCLI">
+  <diagram id="frontline-class-diagram" name="Class Diagram">
+    <mxGraphModel dx="1285" dy="742" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="u1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;User&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Id : int&lt;br&gt;+Username : string&lt;br&gt;+PasswordHash : string&lt;br&gt;+Role : UserRole&lt;br&gt;+CreatedAt : DateTime&lt;br&gt;+IsBlocked : bool&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Decks : ICollection&amp;lt;Deck&amp;gt;&lt;br&gt;+GameSessions : ICollection&amp;lt;GS&amp;gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="170" width="160" x="50" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="u2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;Deck&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Id : int&lt;br&gt;+Name : string&lt;br&gt;+UserId : int&lt;br&gt;+CreatedAt : DateTime&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+DeckCards : ICollection&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="130" x="260" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="u3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;DeckCard&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Id : int&lt;br&gt;+DeckId : int&lt;br&gt;+CardId : int&lt;br&gt;+Quantity : int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="80" x="450" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="u4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;Card&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Id : int&lt;br&gt;+Name : string&lt;br&gt;+Attack : int&lt;br&gt;+Health : int&lt;br&gt;+Range : int&lt;br&gt;+CardType : CardType&lt;br&gt;+Ability : string&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Clone() : Card&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="130" x="560" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="u5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;Unit&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Id : int&lt;br&gt;+CurrentHealth : int&lt;br&gt;+MaxHealth : int&lt;br&gt;+Attack : int&lt;br&gt;+Row : int&lt;br&gt;+Column : int&lt;br&gt;+IsPlayer : bool&lt;br&gt;+IsFrozen : bool&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+TakeDamage(dmg) : int&lt;br&gt;+Heal(amt) : int&lt;br&gt;+FromCard(card, ...) : Unit&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="140" x="560" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="u6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;Board&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Cells : BoardCell[4,4]&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+PlaceUnit(unit, r, c) : bool&lt;br&gt;+MoveUnit(fR, fC, tR, tC)&lt;br&gt;+GetUnitById(id) : Unit&lt;br&gt;+GetAllAliveUnits() : List&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="140" x="350" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="u7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;BoardCell&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Row : int&lt;br&gt;+Column : int&lt;br&gt;+Unit : Unit?&lt;br&gt;+IsPlayerSide : bool&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+IsEmpty : bool&lt;br&gt;+HasUnit : bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="110" x="160" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="u8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;GameDbContext&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Users : DbSet&amp;lt;User&amp;gt;&lt;br&gt;+Cards : DbSet&amp;lt;Card&amp;gt;&lt;br&gt;+Decks : DbSet&amp;lt;Deck&amp;gt;&lt;br&gt;+GameSessions : DbSet&amp;lt;GS&amp;gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+OnModelCreating(MB) : void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="160" x="50" y="465" as="geometry" />
+        </mxCell>
+        <mxCell id="u9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;BattleManager&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+GameState : GameState&lt;br&gt;+AnimationHandlers : AE&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+PlayCardAsync(card, r, c)&lt;br&gt;+ResolveLaneCombatAsync()&lt;br&gt;+Attack(unitId, targetId)&lt;br&gt;+EndTurnAsync()&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="160" x="710" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="u10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;GameState&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Board : Board&lt;br&gt;+PlayerHand : Hand&lt;br&gt;+EnemyHand : Hand&lt;br&gt;+Turn : GameTurn&lt;br&gt;+IsGameOver : bool&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="120" x="360" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="u11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;MainViewModel&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+CurrentUser : User&lt;br&gt;+PlayerDecks : Collection&lt;br&gt;+SelectedDeck : Deck&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+StartBattleCommand&lt;br&gt;+OpenCollectionCommand&lt;br&gt;+OpenProfileCommand&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="140" x="730" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="u12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;align=left;verticalAlign=top;spacing=6;fontSize=11;" value="&lt;div style=&quot;text-align:center;&quot;&gt;&lt;b&gt;BattleViewModel&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+Board : Board&lt;br&gt;+PlayerHand : Observable&lt;br&gt;+EnemyHand : Observable&lt;br&gt;+TurnInfo : string&lt;/div&gt;&lt;hr&gt;&lt;div&gt;+PlayCardCommand&lt;br&gt;+EndTurnCommand&lt;br&gt;+SurrenderCommand&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="150" x="720" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="u1" style="endArrow=none;html=1;rounded=0;" target="u2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" target="u3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="130" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="u3" style="endArrow=none;html=1;rounded=0;" target="u4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="u6" style="endArrow=none;html=1;rounded=0;" target="u7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="u7" style="endArrow=none;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="u5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="215" y="240" />
+              <mxPoint x="595" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="u5" style="endArrow=block;endFill=0;html=1;rounded=0;dashed=1;" target="u4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="u9" style="endArrow=none;html=1;rounded=0;" target="u10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="u10" style="endArrow=none;html=1;rounded=0;" target="u6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="u8" style="endArrow=blockThin;endFill=1;html=1;rounded=0;" target="u1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="u11" style="endArrow=blockThin;endFill=1;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="249" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="u12" style="endArrow=none;html=1;rounded=0;entryX=0.533;entryY=0.003;entryDx=0;entryDy=0;entryPerimeter=0;" target="u9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="u11" style="endArrow=none;html=1;rounded=0;" target="u1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="20" />
+              <mxPoint x="130" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
